@@ -2302,14 +2302,23 @@ fun! s:PutBlock(block,replace)
   while iblock < blocklen
    " the following logic should permit 1, 2, or 4 byte glyphs (I've only tested it with 1 and 2)
   	let chr= strpart(block,iblock,4)
-	if char2nr(chr) <= 255
+
+    " lidong mod beg
+	" if char2nr(chr) <= 255
+	if char2nr(chr) <= 0x80
   	 let chr= strpart(block,iblock,1)
-	elseif char2nr(chr) <= 65536
+	" elseif char2nr(chr) <= 65536
+	elseif char2nr(chr) <= 0x100
   	 let chr= strpart(block,iblock,2)
 	 let iblock= iblock + 1
+	elseif char2nr(chr) <= 0x8000
+  	 let chr= strpart(block,iblock,3)
+	 let iblock= iblock + 2
 	else
 	 let iblock= iblock + 3
 	endif
+    " lidong mod end
+
 "	call Decho("iblock=".iblock." chr#".char2nr(chr)."<".string(chr).">")
 
 	if char2nr(chr) == 10
