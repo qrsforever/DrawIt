@@ -394,17 +394,24 @@ fun! DrawIt#DrawItStart(...)
   endif
 
   " DrawItStart: set up drawing mode mappings (Sylvain Viart) {{{3
-  nnoremap <silent> <buffer> <script> <c-v>      :call <SID>LeftStart()<CR><c-v>
-  vmap     <silent> <buffer> <script> <Leader>a  :<c-u>call <SID>CallBox('Arrow')<CR>
-  vmap     <silent> <buffer> <script> <Leader>b  :<c-u>call <SID>CallBox('DrawBox')<cr>
-  nmap              <buffer> <script> <Leader>c  :call <SID>Canvas()<cr>
-  vmap     <silent> <buffer> <script> <Leader>l  :<c-u>call <SID>CallBox('DrawPlainLine')<CR>
-  vmap     <silent> <buffer> <script> <Leader>s  :<c-u>call <SID>Spacer(line("'<"), line("'>"),0)<cr>
+  nnoremap <silent> <buffer> <script> <c-v>       :call <SID>LeftStart()<CR><c-v>
+  " lidong mod
+  silent! exe 'vmap <silent> <buffer> <script> ' . g:priv_draw_arrow   . ' :<c-u>call <SID>CallBox("Arrow")<cr>'
+  silent! exe 'vmap <silent> <buffer> <script> ' . g:priv_draw_box     . ' :<c-u>call <SID>CallBox("DrawBox")<cr>'
+  silent! exe 'nmap          <buffer> <script> ' . g:priv_draw_canvas  . ' :<c-u>call <SID>Canvas()<cr>'
+  silent! exe 'vmap <silent> <buffer> <script> ' . g:priv_draw_line    . ' :<c-u>call <SID>CallBox("DrawPlainLine")<cr>'
+  silent! exe 'vmap <silent> <buffer> <script> ' . g:priv_draw_spacer  . " :<c-u>call <SID>Spacer(line(\"'<\"), line(\"'>\"),0)<cr>"
+  silent! exe 'vmap <silent> <buffer> <script> ' . g:priv_draw_ellipse . ' :<c-u>call <SID>CallBox("DrawEllipse")<cr>'
+  " vmap     <silent> <buffer> <script> <Leader>a  :<c-u>call <SID>CallBox('Arrow')<CR>
+  " vmap     <silent> <buffer> <script> <Leader>b  :<c-u>call <SID>CallBox('DrawBox')<cr>
+  " nmap              <buffer> <script> <Leader>c  :call <SID>Canvas()<cr>
+  " vmap     <silent> <buffer> <script> <Leader>l  :<c-u>call <SID>CallBox('DrawPlainLine')<CR>
+  " vmap     <silent> <buffer> <script> <Leader>ds  :<c-u>call <SID>Spacer(line("'<"), line("'>"),0)<cr>
 
   " DrawItStart: set up drawing mode mappings (Charles Campbell) {{{3
   " \pa ... \pz : blanks are transparent
   " \ra ... \rz : blanks copy over
-  vmap <buffer> <silent> <Leader>e   :<c-u>call <SID>CallBox('DrawEllipse')<CR>
+  " vmap <buffer> <silent> <Leader>e   :<c-u>call <SID>CallBox('DrawEllipse')<CR>
   
   let allreg= "abcdefghijklmnopqrstuvwxyz"
   while strlen(allreg) > 0
@@ -2475,6 +2482,8 @@ fun! s:Spacer(debut, fin, cols) range
   endif
 
   let l= a:debut
+  echomsg "--1-------" . a:debut
+  echomsg "--2------" . a:fin
   while l <= a:fin
    call setline(l,printf('%-'.width.'s',getline(l)))
    let l = l + 1
