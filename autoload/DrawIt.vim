@@ -2482,8 +2482,6 @@ fun! s:Spacer(debut, fin, cols) range
   endif
 
   let l= a:debut
-  echomsg "--1-------" . a:debut
-  echomsg "--2------" . a:fin
   while l <= a:fin
    call setline(l,printf('%-'.width.'s',getline(l)))
    let l = l + 1
