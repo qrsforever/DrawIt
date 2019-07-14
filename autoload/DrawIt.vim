@@ -505,6 +505,9 @@ fun! DrawIt#DrawItStop()
   exe 'unmenu '.g:DrChipTopLvlMenu.'DrawIt.Append\ Blanks'
  endif
 " call Dret("DrawItStop")
+
+ "lidong add
+ setl ve=
 endfun
 
 " ---------------------------------------------------------------------
