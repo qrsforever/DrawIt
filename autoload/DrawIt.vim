@@ -413,7 +413,8 @@ fun! DrawIt#DrawItStart(...)
   " \ra ... \rz : blanks copy over
   " vmap <buffer> <silent> <Leader>e   :<c-u>call <SID>CallBox('DrawEllipse')<CR>
   
-  let allreg= "abcdefghijklmnopqrstuvwxyz"
+  " lidong add *
+  let allreg= "*abcdefghijklmnopqrstuvwxyz"
   while strlen(allreg) > 0
    let ireg= strpart(allreg,0,1)
    exe "nmap <silent> <buffer> <Leader>p".ireg.'  :<c-u>set lz<cr>:silent! call <SID>PutBlock("'.ireg.'",0)<cr>:set nolz<cr>'
